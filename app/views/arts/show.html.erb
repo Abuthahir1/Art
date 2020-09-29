@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <%= image_tag @art.image.url(:medium) %>
+        <div class="star-rating" data-score= <%= @avg_review %>></div>
+        <em><%= "#{@reviews.length} reviews" %> </em>
+        <div class="table-responsive">
+          <table class="table">
+          <tbody>
+            <tr>
+              <td><strong>Title:</strong></td>
+              <td><%= @art.title %></td>
+            </tr>
+            <tr>
+              <td><strong>Description:</strong></td>
+              <td> <%= @art.description %></td>
+            </tr>
+             <tr>
+              <td><strong>Price:</strong></td>
+              <td> <%= @art.price %></td>
+            </tr>
+             <tr>
+              <td><strong>Rating:</strong></td>
+              <td> <%= @art.rating %></td>
+            </tr>
+             <tr>
+              <td><strong>Owner by:</strong></td>
+              <td> <%= @art.owner_by %></td>
+            </tr>
+          </tbody>
+        </table>
+        <%= link_to "Write a Review", new_art_review_path(@art) %>
+        </div>
+      </div>
+      <div class="col-md-7 col-md-offset-1">
+        <h1 class= "review_title"><%= @art.title %></h1>
+        <p> <%= @art.description%></p>
+        <% if @reviews.blank? %>
+        <h3> No reviews just yet, would you like to add the first!</h3>
+        <%= link_to "Write Review", new_art_review_path(@art), class: "btn btn-danger" %>
+        <%else %>
+        <% @reviews.each do |review|%>
+        <h5>Comment By <%=User.find(review.user_id).first_name %></h5>
+         <div class='reviews'>
+          <div class="star-rating" data-score = <%= review.rating %>></div>
+          <p> <%= review.comment %></p>
+         </div>
+        <% end %>
+         <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_art_path(@art) %> |
+<%= link_to 'Back', arts_path %> |
+<%= link_to 'Request for pdf view', art_path(@art, format: :pdf), class: "pdf"%>
+
+
+
+<script type="text/javascript">
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  })
+ 
+</script>

@@ -1,0 +1,55 @@
+<%= form_for @art, html: { multipart: true } do |form| %>
+  <% if @art.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(art.errors.count, "error") %> prohibited this art from being saved:</h2>
+
+      <ul>
+      <% @art.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title%>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="field">
+      <%= form.label :rating %>
+   <div id="star-rating"></div>
+  </div>
+
+  <div class="field">
+   <%= form.hidden_field :owner_by, :value => current_user.first_name %>
+  </div>
+   <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image%>
+  </div>
+    <div class="field">
+    <%= form.label :pdf %>
+    <%= form.file_field :pdf%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $('#star-rating').raty({
+    path: '/assets/',
+    scoreName: 'art[rating]'
+  })
+</script>

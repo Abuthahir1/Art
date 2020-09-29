@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ArtGallary</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if current_user %>
+  
+ <%= link_to "Sign out", sessions_destroy_url, method: :delete %> <br>
+<% else %>
+ <h1> Login to input your name</h1>
+ <%= link_to "Login to edit", logins_new_path %>
+<% end %>
+  	<p id="notice"><%= notice %></p>
+    <%= yield %>
+  </body>
+</html>

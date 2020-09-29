@@ -1,0 +1,25 @@
+
+<% if current_user && current_user.first_name.present? %>
+
+ <div class ='row'>
+   <% @arts.each do |art| %>
+   <div class= "col-sm-6 col-md-3">
+     <div class='thumbnail'>
+       <%= link_to (image_tag art.image.url(:medium), class: 'image'), art %>
+     </div>
+   </div>
+   <% end %>
+ </div>
+ <%  if current_user.category == "Art Owner" %>
+ <%= link_to "Create Art", new_art_path %>
+ <% end %>
+ <%else%>
+ <% if current_user %>
+   <h1><%= current_user.first_name.present? ? "My name is #{current_user.first_name}" : "Input your name using the link below" %></h1>
+ <%= link_to "Edit current User", edit_user_path(current_user) %> <br>
+ <%= link_to "Sign out", sessions_destroy_url, method: :delete %> <br>
+<% else %>
+<!--  <h1> Login to input your name</h1>
+ <%= link_to "Login to edit", logins_new_path %>
+<% end %> -->
+ <%end%>

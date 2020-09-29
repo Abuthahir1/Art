@@ -1,0 +1,8 @@
+<% if current_user %>
+   <h1><%= current_user.first_name.present? ? "My name is #{current_user.first_name}" : "Input your name using the link below" %></h1>
+ <%= link_to "Edit current User", edit_user_path(current_user) %> <br>
+ <%= link_to "Sign out", sessions_destroy_url, method: :delete %> <br>
+<% else %>
+ <h1> Login to input your name</h1>
+ <%= link_to "Login to edit", logins_new_path %>
+<% end %>
